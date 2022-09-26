@@ -30,12 +30,18 @@ function Input({ placeholder, name, type, value, handleChange }: IInput) {
 }
 
 export default function Welcome() {
-	const { connectWallet, currentAccount } = useContext(TransactionContext);
+	const { connectWallet, currentAccount, formData, sendTransaction, handleChange } = useContext(TransactionContext);
 
 	console.log(connectWallet);
 
-	function handleSubmit() {
+	function handleSubmit(e) {
+		const { addressTo, amount, keyword, message } = formData;
 
+		e.preventDefault();
+
+		if (!addressTo || !amount || !keyword || !message) return;
+
+		sendTransaction();
 	}
 
 	return (
@@ -98,14 +104,14 @@ export default function Welcome() {
 					</div>
 
 					<div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-						<Input placeholder="Address To" name="adressTo" type="text" handleChange={() => { }} />
-						<Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={() => { }} />
-						<Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={() => { }} />
-						<Input placeholder="Enter Message" name="message" type="text" handleChange={() => { }} />
+						<Input placeholder="Address To" name="addressTo" type="text" handleChange={handleChange} />
+						<Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange} />
+						<Input placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange} />
+						<Input placeholder="Enter Message" name="message" type="text" handleChange={handleChange} />
 
 						<div className="h-[1px] w-full bg-gray-400 my-2" />
 
-						{true
+						{false
 							? (
 								<Loader />
 							)
