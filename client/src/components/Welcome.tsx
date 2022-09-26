@@ -16,7 +16,7 @@ interface IInput {
 	handleChange: any //erro aqui
 }
 
-function Input({ placeholder, name, type, value, handleChange }: IInput) {
+const Input = ({ placeholder, name, type, value, handleChange }: IInput) => {
 	return (
 		<input
 			placeholder={placeholder}
@@ -30,7 +30,7 @@ function Input({ placeholder, name, type, value, handleChange }: IInput) {
 }
 
 export default function Welcome() {
-	const { connectWallet, currentAccount, formData, sendTransaction, handleChange } = useContext(TransactionContext);
+	const { currentAccount, connectWallet, handleChange, sendTransaction, formData  } = useContext(TransactionContext);
 
 	console.log(connectWallet);
 
