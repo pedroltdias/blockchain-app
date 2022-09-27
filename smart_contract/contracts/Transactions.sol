@@ -1,6 +1,8 @@
-//SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: UNLICENSED
 
 pragma solidity ^0.8.0;
+
+// import "hardhat/console.sol";
 
 contract Transactions {
     uint256 transactionCount;
@@ -11,6 +13,7 @@ contract Transactions {
         uint256 amount,
         string message,
         uint256 timestamp,
+        string account,
         string keyword
     );
 
@@ -20,15 +23,17 @@ contract Transactions {
         uint256 amount;
         string message;
         uint256 timestamp;
+        string account;
         string keyword;
     }
 
-    TransferStruct[] transactions; //variable transcations is a array of TransferStruct
+    TransferStruct[] transactions;
 
-    function addToBlockchain(
+    function transfer(
         address payable receiver,
         uint256 amount,
         string memory message,
+        string memory account,
         string memory keyword
     ) public {
         transactionCount += 1;
@@ -39,6 +44,7 @@ contract Transactions {
                 amount,
                 message,
                 block.timestamp,
+                account,
                 keyword
             )
         );
@@ -49,8 +55,11 @@ contract Transactions {
             amount,
             message,
             block.timestamp,
+            account,
             keyword
         );
+
+        receiver.transfer(amount);
     }
 
     function getAllTransactions()
@@ -61,7 +70,7 @@ contract Transactions {
         return transactions;
     }
 
-    function getTransactionsCount() public view returns (uint256) {
+    function getTransactionCount() public view returns (uint256) {
         return transactionCount;
     }
 }
