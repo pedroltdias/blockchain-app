@@ -31,7 +31,7 @@ const Input = ({ placeholder, name, type, value, handleChange }: IInput) => {
 }
 
 export default function Welcome() {
-	const { currentAccount, connectWallet, handleChange, sendTransaction, formData } = useContext(TransactionContext);
+	const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
 
 	console.log(connectWallet);
 
@@ -112,7 +112,7 @@ export default function Welcome() {
 
 						<div className="h-[1px] w-full bg-gray-400 my-2" />
 
-						{false
+						{isLoading
 							? (
 								<Loader />
 							)
